@@ -1,0 +1,4 @@
+26 MAY 25:
+- Added a new form, "Calculator"
+- Added readme
+- Added changelog
