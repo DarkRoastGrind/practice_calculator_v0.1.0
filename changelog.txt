@@ -2,3 +2,11 @@
 - Added a new form, "Calculator"
 - Added readme
 - Added changelog
+
+- Added functionality to the number buttons.
+	Clicking on the number buttons now concatenates numbers to the input box. 
+	Attempting to use the decimal button more than once simply returns,
+	stopping multiple decimal inputs. 
+
+- Added devlog file.
+- Added bug_tracker file.
