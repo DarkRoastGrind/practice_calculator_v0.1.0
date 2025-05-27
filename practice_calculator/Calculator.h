@@ -59,6 +59,8 @@ namespace practicecalculator {
 	private: System::Windows::Forms::Label^ InputLabel;
 	private: System::Windows::Forms::Label^ InputBox;
 
+	private: System::Windows::Forms::Button^ Clear_Input;
+
 
 
 
@@ -96,6 +98,7 @@ namespace practicecalculator {
 			this->Calculation_View = (gcnew System::Windows::Forms::GroupBox());
 			this->InputBox = (gcnew System::Windows::Forms::Label());
 			this->InputLabel = (gcnew System::Windows::Forms::Label());
+			this->Clear_Input = (gcnew System::Windows::Forms::Button());
 			this->Calculation_View->SuspendLayout();
 			this->SuspendLayout();
 			// 
@@ -334,11 +337,24 @@ namespace practicecalculator {
 			this->InputLabel->TextAlign = System::Drawing::ContentAlignment::MiddleRight;
 			this->InputLabel->Click += gcnew System::EventHandler(this, &Calculator::label1_Click);
 			// 
+			// Clear_Input
+			// 
+			this->Clear_Input->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->Clear_Input->Location = System::Drawing::Point(8, 170);
+			this->Clear_Input->Name = L"Clear_Input";
+			this->Clear_Input->Size = System::Drawing::Size(156, 34);
+			this->Clear_Input->TabIndex = 17;
+			this->Clear_Input->Text = L"Clear Input";
+			this->Clear_Input->UseVisualStyleBackColor = true;
+			this->Clear_Input->Click += gcnew System::EventHandler(this, &Calculator::Clear_Input_Click);
+			// 
 			// Calculator
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(684, 284);
+			this->Controls->Add(this->Clear_Input);
 			this->Controls->Add(this->Calculation_View);
 			this->Controls->Add(this->Calculate);
 			this->Controls->Add(this->Division);
@@ -386,7 +402,10 @@ namespace practicecalculator {
 	}
 
 	// -------------------- Input/Output --------------------
-
+	private: System::Void Clear_Input_Click(System::Object^ sender, System::EventArgs^ e) 
+	{
+		InputBox->Text = "0";
+	}
 
 	// -------------------- Number Buttons --------------------
 	private: System::Void Decimal_Click(System::Object^ sender, System::EventArgs^ e) 
@@ -436,5 +455,6 @@ namespace practicecalculator {
 	{
 		InputBox->Text += "9";
 	}
+
 };
 }

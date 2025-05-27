@@ -1,12 +1,20 @@
-26 MAY 25:
+--------------- 26 MAY 25: ---------------
+MAJOR:
 - Added a new form, "Calculator"
-- Added readme
-- Added changelog
 
 - Added functionality to the number buttons.
 	Clicking on the number buttons now concatenates numbers to the input box. 
 	Attempting to use the decimal button more than once simply returns,
 	stopping multiple decimal inputs. 
 
+- Added clear input button.
+	Clears the input box only, not the entire calculation.
+
+MINOR:
+- Added readme
+- Added changelog
 - Added devlog file.
 - Added bug_tracker file.
+
+BUG FIXES: 
+- None
