@@ -1,4 +1,0 @@
-26 MAY 2025:
-- Added a basic form named "Calculator".
-- Created the readme.
-- Created the changelog.
