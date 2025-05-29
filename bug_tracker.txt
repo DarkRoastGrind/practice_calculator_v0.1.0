@@ -1,7 +1,25 @@
 Known bugs:
-- Any symbol input after a first symbol input causes an error.
-- Hitting = after a number has been calculated only concatenates the number onto itself. 
-- Pressing any symbol after a calculation causes an error. 
-- Negative numbers show their symbol on the right, rather than the left. 
-- Attempting to do an operation following a previous, uncleared operation does not work.
+MAJOR:
+
+MINOR:
+
+
+------- Solved Bugs -------
+-	Any symbol input after a first symbol input causes an error.
+		29 May 2025 - Solved with redesign of logic functions.
+
+-	Hitting = after a number has been calculated only concatenates the number onto itself. 
+		29 May 2025 - Solved with redesign of logic functions.
+
+-	Hitting = causes an error
+		29 May 2025 - Solved with redesign of logic functions.
+
+-	Pressing any symbol after a calculation causes an error. 
+		29 May 2025 - Solved with redesign of logic functions.
+
+-	Attempting to do an operation following a previous, uncleared operation does not work.
 	The second number remains the same, and the output is changed based only on the second number.
+		29 May 2025 - Solved with redesign of logic functions.
+
+-	Negative numbers show their symbol on the right, rather than the left. 
+		29 May 2025 - Solved by changing the right-to-left nature of the output text box to align-text instead. 

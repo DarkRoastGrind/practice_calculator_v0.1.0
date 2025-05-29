@@ -332,8 +332,6 @@ namespace practicecalculator {
 			// 
 			// OperationLabel
 			// 
-			this->OperationLabel->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Left)
-				| System::Windows::Forms::AnchorStyles::Right));
 			this->OperationLabel->BackColor = System::Drawing::SystemColors::AppWorkspace;
 			this->OperationLabel->Location = System::Drawing::Point(48, 86);
 			this->OperationLabel->Name = L"OperationLabel";
@@ -362,9 +360,10 @@ namespace practicecalculator {
 			this->OutputHolder->BackColor = System::Drawing::SystemColors::Control;
 			this->OutputHolder->Location = System::Drawing::Point(83, 118);
 			this->OutputHolder->Name = L"OutputHolder";
-			this->OutputHolder->RightToLeft = System::Windows::Forms::RightToLeft::Yes;
+			this->OutputHolder->RightToLeft = System::Windows::Forms::RightToLeft::No;
 			this->OutputHolder->Size = System::Drawing::Size(271, 24);
 			this->OutputHolder->TabIndex = 4;
+			this->OutputHolder->TextAlign = System::Drawing::ContentAlignment::MiddleRight;
 			// 
 			// num2Holder
 			// 
@@ -471,14 +470,17 @@ namespace practicecalculator {
 #pragma endregion
 
 	// -------------------- Helper Functions --------------------
+	// Clear the inputBox
 	private: Void ClearInputBox()
 	{
 		InputBox->Text = "";
 	}
+	// Clear the output box. 
 	private: Void ClearOutputBox()
 	{
 		OutputHolder->Text = "";
 	}
+	// Clear all fields.
 	private: Void ClearAll()
 	{
 		InputBox->Text = "";
@@ -486,48 +488,14 @@ namespace practicecalculator {
 		num2Holder->Text = "";
 		OutputHolder->Text = "";
 	}
+	// Set the current operator for logic operations. 
 	private: Void SetOperator()
 	{
 		OperationLabel->Text = System::Convert::ToString(operation);
 	}
-
-	// Check if the input field is empty. If yes, return 1, if not, return 0.
-	private: Boolean CheckInput()
-	{
-		if (InputBox->Text == "")
-			return 1;
-		else
-			return 0;
-	}
-	// Check if the num1Holder is empty. If yes, return 1, if not, return 0.
-	private: Boolean CheckHolder1()
-	{
-		if (num1Holder->Text == "")
-			return 1;
-		else
-			return 0;
-	}
-	// Check if the num2Holder is empty. If yes, return 1, if not, return 0.
-	private: Boolean CheckHolder2()
-	{
-		if (num2Holder->Text == "")
-			return 1;
-		else
-			return 0;
-	}
-	// Check if the output is empty. If yes, return 1, if not, return 0.
-	private: Boolean CheckOutput()
-	{
-		if (OutputHolder->Text == "")
-			return 1;
-		else
-			return 0;
-	}
-
-	// Check all input/output/holder fields. 
+	// Used by operator buttons to assign data to the holders. 
 	private: Void InputDataToHolders()
 	{
-
 		// Cases to check:
 		// ---------- Input empty ----------
 		// If the input is empty, no operations can be done, return.
@@ -568,62 +536,47 @@ namespace practicecalculator {
 			}
 		}
 	}
-	private: Void CalculationsBothFilled()
+
+	// ---------- Boolean Checks for input, holders, and output. ----------
+	// Check if the input field is empty. If yes, return 1, if not, return 0.
+	private: Boolean CheckInput()
 	{
-		double input1 = System::Convert::ToDouble(num1Holder->Text);
-		double input2 = System::Convert::ToDouble(num2Holder->Text);
-		double output = System::Convert::ToDouble(OutputHolder->Text);
-
-		// If the output holder box is not empty,
-		if (OutputHolder->Text != "") 
-		{
-			num1Holder->Text = OutputHolder->Text;
-			switch (operation) {
-			case '+':
-				OutputHolder->Text = System::Convert::ToString(output + input2);
-				break;
-
-			case '-':
-				OutputHolder->Text = System::Convert::ToString(output - input2);
-				break;
-
-			case '*':
-				OutputHolder->Text = System::Convert::ToString(output * input2);
-				break;
-
-			case '/':
-				OutputHolder->Text = System::Convert::ToString(output / input2);
-				break;
-			}
-		}
-
-		else 
-		{
-			switch (operation) {
-			case '+':
-				OutputHolder->Text += System::Convert::ToString(input1 + input2);
-				break;
-
-			case '-':
-				OutputHolder->Text += System::Convert::ToString(input1 - input2);
-				break;
-
-			case '*':
-				OutputHolder->Text += System::Convert::ToString(input1 * input2);
-				break;
-
-			case '/':
-				OutputHolder->Text += System::Convert::ToString(input1 / input2);
-				break;
-			}
-		}
+		if (InputBox->Text == "")
+			return 1;
+		else
+			return 0;
 	}
+	// Check if the num1Holder is empty. If yes, return 1, if not, return 0.
+	private: Boolean CheckHolder1()
+	{
+		if (num1Holder->Text == "")
+			return 1;
+		else
+			return 0;
+	}
+	// Check if the num2Holder is empty. If yes, return 1, if not, return 0.
+	private: Boolean CheckHolder2()
+	{
+		if (num2Holder->Text == "")
+			return 1;
+		else
+			return 0;
+	}
+	// Check if the output is empty. If yes, return 1, if not, return 0.
+	private: Boolean CheckOutput()
+	{
+		if (OutputHolder->Text == "")
+			return 1;
+		else
+			return 0;
+	}
+
+	// ---------- Calculations. Can be simplified. ----------
+	// Main calculation function used by the = button. 
 	private: Void Calculations() 
 	{
 		// Assign variables for the inputs/output.
-		double input1 = System::Convert::ToDouble(num1Holder->Text);
-		double input2 = System::Convert::ToDouble(num2Holder->Text);
-		double output = System::Convert::ToDouble(OutputHolder->Text);
+		// double output = System::Convert::ToDouble(OutputHolder->Text);
 
 		// Cases:
 		// both input and output empty.
@@ -652,10 +605,11 @@ namespace practicecalculator {
 				return;
 			}
 
-			// If both are filled
+			// If both are filled, commit the operation using the correct sign and return it. 
 			else if (num1Holder->Text != "" && num2Holder->Text != "")
 			{
-
+				CalculateInput();
+				return;
 			}
 
 			else 
@@ -663,41 +617,163 @@ namespace practicecalculator {
 				return;
 			}
 		}
-
 		// Input empty, output filled
 		if (InputBox->Text == "" && OutputHolder->Text != "")
 		{
-			// If neither holders are filled
+			// If neither holders are filled - Literally can't happen, here "Just in case"
+			if (num1Holder->Text == "" && num2Holder->Text == "") 
+			{
+				return;
+			}
 
-			// If holder 1 is filled, and holder 2 is not
+			// If holder 1 is filled, and holder 2 is not - Set num2 to num1, empty num1, return.
+			else if (num1Holder->Text != "" && num2Holder->Text == "")
+			{
+				num2Holder->Text = num1Holder->Text;
+				num1Holder->Text = "";
+				return;
+			}
 
-			// If holder 2 is filled, and holder 1 is not
+			// If holder 2 is filled, and holder 1 is not - Regular operations, return
+			else if (num1Holder->Text == "" && num2Holder->Text != "")
+			{
+				return;
+			}
 
-			// If both are filled
+			// If both holders are filled, and there is a number in the output,
+			// Set the num1 holder to the output, add num2, set output as calculation. 
+			else if (num1Holder->Text != "" && num2Holder->Text != "")
+			{
+				num1Holder->Text = OutputHolder->Text;
+				ClearOutputBox();
+
+				// Calculate the increase. 
+				CalculateInput();
+
+				return;
+
+			}
+
 		}
-
 		// Input filled, output empty
 		if (InputBox->Text != "" && OutputHolder->Text == "")
 		{
 			// If neither holders are filled
+			if (num1Holder->Text == "" && num2Holder->Text == "")
+			{
+				// Set the output as the input
+				OutputHolder->Text = InputBox->Text;
+				// Clear the input.
+				ClearInputBox();
+			}
 
 			// If holder 1 is filled, and holder 2 is not
+			else if (num1Holder->Text != "" && num2Holder->Text == "")
+			{
+				// Set the num2 holder to the input
+				num2Holder->Text = InputBox->Text;
+				// Clear the input.
+				ClearInputBox();
+				// Calculate both numbers
+				CalculateInput();
 
-			// If holder 2 is filled, and holder 1 is not
+				return;
+			}
 
-			// If both are filled
+			// If holder 2 is filled, and holder 1 is not - Shouldn't be possible, 
+			// But set value of holder 2 to holder 1, set holder 2 value to input,
+			// Then calculate. 
+			else if (num1Holder->Text == "" && num2Holder->Text != "")
+			{
+				num1Holder->Text = num2Holder->Text;
+				num2Holder->Text = InputBox->Text;
+
+				CalculateInput();
+			}
+
+			// If both are filled and input is filled,
+			// Calculate both holders, replace num1holder data with calculated text,
+			// Set num2holder as input, then calculate that and put it as the output. 
+			else if (num1Holder->Text != "" && num2Holder->Text != "")
+			{
+				CalculateInput();
+				num1Holder->Text = OutputHolder->Text;
+				num2Holder->Text = InputBox->Text;
+				ClearInputBox();
+				ClearOutputBox();
+				CalculateInput();
+			}
 		}
-
 		// Both filled
 		if (InputBox->Text != "" && OutputHolder->Text != "")
 		{
 			// If neither holders are filled
+			if (num1Holder->Text == "" && num2Holder->Text == "")
+			{
+				// Set the num2 to the input box text,
+				num2Holder->Text = InputBox->Text;
+				// Clear the input,
+				ClearInputBox();
+				// Set num1 to the output box text,
+				num1Holder->Text = OutputHolder->Text;
+				// Clear the output box to prevent concatentation. 
+				ClearOutputBox();
+				// Both are filled, calculate. 
+				CalculateInput();
+			}
 
 			// If holder 1 is filled, and holder 2 is not
+			else if (num1Holder->Text != "" && num2Holder->Text == "")
+			{
+				num2Holder->Text = InputBox->Text;
+				ClearInputBox();
+				CalculateInput();
+			}
 
 			// If holder 2 is filled, and holder 1 is not
+			else if (num1Holder->Text == "" && num2Holder->Text != "")
+			{
+				num1Holder->Text = OutputHolder->Text;
+				ClearOutputBox();
+				num2Holder->Text = InputBox->Text;
+				CalculateInput();
+			}
 
 			// If both are filled
+			// Set holder 1 as the current output, clear the output.
+			else if (num1Holder->Text != "" && num2Holder->Text != "") 
+			{
+				num1Holder->Text = OutputHolder->Text;
+				ClearOutputBox();
+				num2Holder->Text = InputBox->Text;
+				ClearInputBox();
+				CalculateInput();
+			}
+		}
+	}
+	// Calculate both fields into the output field. Reduces clutter. 
+	private: Void CalculateInput()
+	{
+		double input1 = System::Convert::ToDouble(num1Holder->Text);
+		double input2 = System::Convert::ToDouble(num2Holder->Text);
+
+		switch (operation)
+		{
+		case '+':
+			OutputHolder->Text += System::Convert::ToString(input1 + input2);
+			break;
+
+		case '-':
+			OutputHolder->Text += System::Convert::ToString(input1 - input2);
+			break;
+
+		case '*':
+			OutputHolder->Text += System::Convert::ToString(input1 * input2);
+			break;
+
+		case '/':
+			OutputHolder->Text += System::Convert::ToString(input1 / input2);
+			break;
 		}
 	}
 
@@ -712,6 +788,7 @@ namespace practicecalculator {
 	{
 
 	}
+	// Operation label, used to show what operation is currently being executed. Default is addition (+)
 	private: System::Void OperationLabel_Click(System::Object^ sender, System::EventArgs^ e) 
 	{
 
@@ -721,35 +798,6 @@ namespace practicecalculator {
 	private: System::Void Calculate_Click(System::Object^ sender, System::EventArgs^ e)
 	{
 		Calculations();
-		// If the first holder is not empty, and the second holder is empty, but the input box is not empty,
-		if (num1Holder->Text != "" && num2Holder->Text == "" && InputBox->Text != "")
-		{
-			num2Holder->Text = InputBox->Text;
-			ClearInputBox();
-
-			double input1 = System::Convert::ToDouble(num1Holder->Text);
-			double input2 = System::Convert::ToDouble(num2Holder->Text);
-
-			switch (operation) {
-			case '+':
-				OutputHolder->Text += System::Convert::ToString(input1 + input2);
-				break;
-
-			case '-':
-				OutputHolder->Text += System::Convert::ToString(input1 - input2);
-				break;
-
-			case '*':
-				OutputHolder->Text += System::Convert::ToString(input1 * input2);
-				break;
-
-			case '/':
-				OutputHolder->Text += System::Convert::ToString(input1 / input2);
-				break;
-			}
-			return;
-		}
-
 	}
 	private: System::Void Multiplication_Click(System::Object^ sender, System::EventArgs^ e) 
 	{

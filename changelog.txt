@@ -1,7 +1,30 @@
 --------------- 29 MAY 25: ---------------
+------ MAJOR: ------
+- Created logic for every single possible input/output combination with regard to the operations buttons. 
+	Examples: If the input is filled/empty, check if holders are filled/empty, and if the output is filled/empty.
+
+
+------ MINOR: ------
+- Removed CalculationsBothFilled function, as it no longer served a purpose. 
+- Created CalcualteTriple function, then simplified and removed it, as it was reduntant. 
+
+
+------ BUG FIXES: ------
+Logic operation fixes by the redesign of logic functions:
+- Any symbol input after a first symbol input causes an error.
+- Hitting = after a number has been calculated only concatenates the number onto itself. 
+- Hitting = causes an error
+- Pressing any symbol after a calculation causes an error. 
+- Attempting to do an operation following a previous, uncleared operation does not work.
+	The second number remains the same, and the output is changed based only on the second number.
+
+Design fixes:
+- Negative numbers show their symbol on the right, rather than the left. 
+	Changed the output box from right-to-left,to text-align instead. 
+
 
 --------------- 26 MAY 25: ---------------
-MAJOR:
+------ MAJOR: ------ 
 - Added a new form, "Calculator"
 
 - Added functionality to the number buttons.
@@ -17,11 +40,13 @@ MAJOR:
 	Now only one function is required to modify the operation symbol
 	Prevent clutter 
 
-MINOR:
+
+------ MINOR: ------
 - Added readme
 - Added changelog
 - Added devlog file.
 - Added bug_tracker file.
 
-BUG FIXES: 
+
+------ BUG FIXES: ------ 
 - None

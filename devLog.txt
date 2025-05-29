@@ -1,5 +1,14 @@
-Devlog - TODO:
+------------- Devlog -------------
+------ TODO: ------
 -	Rename label functions for output for better readability. 
--	Add check in the calculate_click function to look for 
-	0's at the beginning of input strings. If there are any, remove. 
 
+-	Add check in the calculation functions to look for 
+	0's at the beginning of input strings. If there are any, remove,
+	Unless there is a decimal present, then remove all 0's up to the decimal. 
+	
+-	Clean the logic for the operations buttons. 
+	More helper functions can be created to simplify the logic and clutter.
+	Not to mention, a lot of the logic can be simplified.
+
+
+------ Completed: ------
