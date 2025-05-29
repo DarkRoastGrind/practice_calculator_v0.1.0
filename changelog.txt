@@ -3,6 +3,7 @@
 - Created logic for every single possible input/output combination with regard to the operations buttons. 
 	Examples: If the input is filled/empty, check if holders are filled/empty, and if the output is filled/empty.
 
+- Released an exe version of the application. 
 
 ------ MINOR: ------
 - Removed CalculationsBothFilled function, as it no longer served a purpose. 

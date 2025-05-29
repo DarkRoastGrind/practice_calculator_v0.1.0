@@ -3,7 +3,6 @@ MAJOR:
 
 MINOR:
 
-
 ------- Solved Bugs -------
 -	Any symbol input after a first symbol input causes an error.
 		29 May 2025 - Solved with redesign of logic functions.

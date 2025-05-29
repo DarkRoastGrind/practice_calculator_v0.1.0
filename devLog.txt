@@ -12,3 +12,4 @@
 
 
 ------ Completed: ------
+-	Create an executable file to run the calculator. 
