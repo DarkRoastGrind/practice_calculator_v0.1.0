@@ -23,6 +23,10 @@ namespace practicecalculator {
 			//
 		}
 
+	public:
+
+	Char operation = '+';
+
 	protected:
 		/// <summary>
 		/// Clean up any resources being used.
@@ -58,11 +62,15 @@ namespace practicecalculator {
 
 	private: System::Windows::Forms::Label^ InputLabel;
 	private: System::Windows::Forms::Label^ InputBox;
+	private: System::Windows::Forms::Label^ OutputLabel;
+	private: System::Windows::Forms::Label^ OutputHolder;
+
+	private: System::Windows::Forms::Label^ num2Holder;
+	private: System::Windows::Forms::Label^ num1Holder;
 
 	private: System::Windows::Forms::Button^ Clear_Input;
-
-
-
+	private: System::Windows::Forms::Button^ Clear;
+	private: System::Windows::Forms::Label^ OperationLabel;
 
 	protected:
 
@@ -96,9 +104,15 @@ namespace practicecalculator {
 			this->Calculate = (gcnew System::Windows::Forms::Button());
 			this->Decimal = (gcnew System::Windows::Forms::Button());
 			this->Calculation_View = (gcnew System::Windows::Forms::GroupBox());
+			this->OperationLabel = (gcnew System::Windows::Forms::Label());
+			this->OutputLabel = (gcnew System::Windows::Forms::Label());
+			this->OutputHolder = (gcnew System::Windows::Forms::Label());
+			this->num2Holder = (gcnew System::Windows::Forms::Label());
+			this->num1Holder = (gcnew System::Windows::Forms::Label());
 			this->InputBox = (gcnew System::Windows::Forms::Label());
 			this->InputLabel = (gcnew System::Windows::Forms::Label());
 			this->Clear_Input = (gcnew System::Windows::Forms::Button());
+			this->Clear = (gcnew System::Windows::Forms::Button());
 			this->Calculation_View->SuspendLayout();
 			this->SuspendLayout();
 			// 
@@ -300,28 +314,90 @@ namespace practicecalculator {
 				| System::Windows::Forms::AnchorStyles::Left)
 				| System::Windows::Forms::AnchorStyles::Right));
 			this->Calculation_View->BackColor = System::Drawing::SystemColors::AppWorkspace;
+			this->Calculation_View->Controls->Add(this->OperationLabel);
+			this->Calculation_View->Controls->Add(this->OutputLabel);
+			this->Calculation_View->Controls->Add(this->OutputHolder);
+			this->Calculation_View->Controls->Add(this->num2Holder);
+			this->Calculation_View->Controls->Add(this->num1Holder);
 			this->Calculation_View->Controls->Add(this->InputBox);
 			this->Calculation_View->Controls->Add(this->InputLabel);
 			this->Calculation_View->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->Calculation_View->Location = System::Drawing::Point(240, 12);
 			this->Calculation_View->Name = L"Calculation_View";
-			this->Calculation_View->Size = System::Drawing::Size(427, 264);
+			this->Calculation_View->Size = System::Drawing::Size(360, 303);
 			this->Calculation_View->TabIndex = 16;
 			this->Calculation_View->TabStop = false;
 			this->Calculation_View->Text = L"Calculations";
+			// 
+			// OperationLabel
+			// 
+			this->OperationLabel->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Left)
+				| System::Windows::Forms::AnchorStyles::Right));
+			this->OperationLabel->BackColor = System::Drawing::SystemColors::AppWorkspace;
+			this->OperationLabel->Location = System::Drawing::Point(48, 86);
+			this->OperationLabel->Name = L"OperationLabel";
+			this->OperationLabel->RightToLeft = System::Windows::Forms::RightToLeft::Yes;
+			this->OperationLabel->Size = System::Drawing::Size(29, 24);
+			this->OperationLabel->TabIndex = 6;
+			this->OperationLabel->Text = L"+";
+			this->OperationLabel->Click += gcnew System::EventHandler(this, &Calculator::OperationLabel_Click);
+			// 
+			// OutputLabel
+			// 
+			this->OutputLabel->AutoSize = true;
+			this->OutputLabel->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->OutputLabel->Location = System::Drawing::Point(6, 118);
+			this->OutputLabel->Name = L"OutputLabel";
+			this->OutputLabel->Size = System::Drawing::Size(71, 24);
+			this->OutputLabel->TabIndex = 5;
+			this->OutputLabel->Text = L"Output:";
+			this->OutputLabel->TextAlign = System::Drawing::ContentAlignment::MiddleRight;
+			// 
+			// OutputHolder
+			// 
+			this->OutputHolder->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Left)
+				| System::Windows::Forms::AnchorStyles::Right));
+			this->OutputHolder->BackColor = System::Drawing::SystemColors::Control;
+			this->OutputHolder->Location = System::Drawing::Point(83, 118);
+			this->OutputHolder->Name = L"OutputHolder";
+			this->OutputHolder->RightToLeft = System::Windows::Forms::RightToLeft::Yes;
+			this->OutputHolder->Size = System::Drawing::Size(271, 24);
+			this->OutputHolder->TabIndex = 4;
+			// 
+			// num2Holder
+			// 
+			this->num2Holder->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Left)
+				| System::Windows::Forms::AnchorStyles::Right));
+			this->num2Holder->BackColor = System::Drawing::SystemColors::AppWorkspace;
+			this->num2Holder->Location = System::Drawing::Point(83, 86);
+			this->num2Holder->Name = L"num2Holder";
+			this->num2Holder->RightToLeft = System::Windows::Forms::RightToLeft::Yes;
+			this->num2Holder->Size = System::Drawing::Size(271, 24);
+			this->num2Holder->TabIndex = 3;
+			// 
+			// num1Holder
+			// 
+			this->num1Holder->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Left)
+				| System::Windows::Forms::AnchorStyles::Right));
+			this->num1Holder->BackColor = System::Drawing::SystemColors::AppWorkspace;
+			this->num1Holder->Location = System::Drawing::Point(83, 59);
+			this->num1Holder->Name = L"num1Holder";
+			this->num1Holder->RightToLeft = System::Windows::Forms::RightToLeft::Yes;
+			this->num1Holder->Size = System::Drawing::Size(271, 24);
+			this->num1Holder->TabIndex = 2;
 			// 
 			// InputBox
 			// 
 			this->InputBox->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Left)
 				| System::Windows::Forms::AnchorStyles::Right));
 			this->InputBox->BackColor = System::Drawing::SystemColors::ButtonFace;
-			this->InputBox->Location = System::Drawing::Point(68, 25);
+			this->InputBox->Location = System::Drawing::Point(83, 25);
 			this->InputBox->Name = L"InputBox";
 			this->InputBox->RightToLeft = System::Windows::Forms::RightToLeft::Yes;
-			this->InputBox->Size = System::Drawing::Size(353, 24);
+			this->InputBox->Size = System::Drawing::Size(271, 24);
 			this->InputBox->TabIndex = 1;
-			this->InputBox->Text = L"0";
 			this->InputBox->Click += gcnew System::EventHandler(this, &Calculator::label1_Click_1);
 			// 
 			// InputLabel
@@ -349,11 +425,24 @@ namespace practicecalculator {
 			this->Clear_Input->UseVisualStyleBackColor = true;
 			this->Clear_Input->Click += gcnew System::EventHandler(this, &Calculator::Clear_Input_Click);
 			// 
+			// Clear
+			// 
+			this->Clear->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->Clear->Location = System::Drawing::Point(8, 210);
+			this->Clear->Name = L"Clear";
+			this->Clear->Size = System::Drawing::Size(156, 34);
+			this->Clear->TabIndex = 18;
+			this->Clear->Text = L"Clear All";
+			this->Clear->UseVisualStyleBackColor = true;
+			this->Clear->Click += gcnew System::EventHandler(this, &Calculator::Clear_Click);
+			// 
 			// Calculator
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(684, 284);
+			this->ClientSize = System::Drawing::Size(617, 323);
+			this->Controls->Add(this->Clear);
 			this->Controls->Add(this->Clear_Input);
 			this->Controls->Add(this->Calculation_View);
 			this->Controls->Add(this->Calculate);
@@ -381,30 +470,320 @@ namespace practicecalculator {
 		}
 #pragma endregion
 
+	// -------------------- Helper Functions --------------------
+	private: Void ClearInputBox()
+	{
+		InputBox->Text = "";
+	}
+	private: Void ClearOutputBox()
+	{
+		OutputHolder->Text = "";
+	}
+	private: Void ClearAll()
+	{
+		InputBox->Text = "";
+		num1Holder->Text = "";
+		num2Holder->Text = "";
+		OutputHolder->Text = "";
+	}
+	private: Void SetOperator()
+	{
+		OperationLabel->Text = System::Convert::ToString(operation);
+	}
+
+	// Check if the input field is empty. If yes, return 1, if not, return 0.
+	private: Boolean CheckInput()
+	{
+		if (InputBox->Text == "")
+			return 1;
+		else
+			return 0;
+	}
+	// Check if the num1Holder is empty. If yes, return 1, if not, return 0.
+	private: Boolean CheckHolder1()
+	{
+		if (num1Holder->Text == "")
+			return 1;
+		else
+			return 0;
+	}
+	// Check if the num2Holder is empty. If yes, return 1, if not, return 0.
+	private: Boolean CheckHolder2()
+	{
+		if (num2Holder->Text == "")
+			return 1;
+		else
+			return 0;
+	}
+	// Check if the output is empty. If yes, return 1, if not, return 0.
+	private: Boolean CheckOutput()
+	{
+		if (OutputHolder->Text == "")
+			return 1;
+		else
+			return 0;
+	}
+
+	// Check all input/output/holder fields. 
+	private: Void InputDataToHolders()
+	{
+
+		// Cases to check:
+		// ---------- Input empty ----------
+		// If the input is empty, no operations can be done, return.
+		if (CheckInput())
+		{
+			return;
+		}
+
+		// ---------- Input filled ----------
+		else if (!CheckInput())
+		{
+			// Both Holders Empty - fill num1Holder, empty input box.
+			if (num1Holder->Text == "" && num2Holder->Text == "")
+			{
+				num1Holder->Text = InputBox->Text;
+				ClearInputBox();
+			}
+
+			// First Holder filled, second empty - Fill second holder, calculate, and empty the input.
+			else if (num1Holder->Text != "" && num2Holder->Text == "")
+			{
+				num2Holder->Text = InputBox->Text;
+				ClearInputBox();
+			}
+
+			// Second Holder filled, first empty
+			else if (num1Holder->Text == "" && num2Holder->Text != "")
+			{
+				num1Holder->Text = num2Holder->Text;
+				num2Holder->Text = InputBox->Text;
+				ClearInputBox();
+			}
+
+			// Both holders filled
+			else if (num1Holder->Text != "" && num2Holder->Text != "")
+			{
+				ClearInputBox();
+			}
+		}
+	}
+	private: Void CalculationsBothFilled()
+	{
+		double input1 = System::Convert::ToDouble(num1Holder->Text);
+		double input2 = System::Convert::ToDouble(num2Holder->Text);
+		double output = System::Convert::ToDouble(OutputHolder->Text);
+
+		// If the output holder box is not empty,
+		if (OutputHolder->Text != "") 
+		{
+			num1Holder->Text = OutputHolder->Text;
+			switch (operation) {
+			case '+':
+				OutputHolder->Text = System::Convert::ToString(output + input2);
+				break;
+
+			case '-':
+				OutputHolder->Text = System::Convert::ToString(output - input2);
+				break;
+
+			case '*':
+				OutputHolder->Text = System::Convert::ToString(output * input2);
+				break;
+
+			case '/':
+				OutputHolder->Text = System::Convert::ToString(output / input2);
+				break;
+			}
+		}
+
+		else 
+		{
+			switch (operation) {
+			case '+':
+				OutputHolder->Text += System::Convert::ToString(input1 + input2);
+				break;
+
+			case '-':
+				OutputHolder->Text += System::Convert::ToString(input1 - input2);
+				break;
+
+			case '*':
+				OutputHolder->Text += System::Convert::ToString(input1 * input2);
+				break;
+
+			case '/':
+				OutputHolder->Text += System::Convert::ToString(input1 / input2);
+				break;
+			}
+		}
+	}
+	private: Void Calculations() 
+	{
+		// Assign variables for the inputs/output.
+		double input1 = System::Convert::ToDouble(num1Holder->Text);
+		double input2 = System::Convert::ToDouble(num2Holder->Text);
+		double output = System::Convert::ToDouble(OutputHolder->Text);
+
+		// Cases:
+		// both input and output empty.
+		if (InputBox->Text == "" && OutputHolder->Text == "")
+		{
+			// If neither holders are filled
+			if (num1Holder->Text == "" && num2Holder->Text == "") {
+				// Don't do anything.
+				return;
+			}
+
+			// If holder 1 is filled, and holder 2 is not
+			// Set the num2Holder equal to the num1, clear the num 1, and set the output holder to num2Holder.
+			else if (num1Holder->Text != "" && num2Holder->Text == "")
+			{
+				num2Holder->Text = num1Holder->Text;
+				num1Holder->Text = "";
+				OutputHolder->Text = num2Holder->Text;
+				return;
+			}
+
+			// If holder 2 is filled, and holder 1 is not
+			else if (num1Holder->Text == "" && num2Holder->Text != "")
+			{
+				OutputHolder->Text = num2Holder->Text;
+				return;
+			}
+
+			// If both are filled
+			else if (num1Holder->Text != "" && num2Holder->Text != "")
+			{
+
+			}
+
+			else 
+			{
+				return;
+			}
+		}
+
+		// Input empty, output filled
+		if (InputBox->Text == "" && OutputHolder->Text != "")
+		{
+			// If neither holders are filled
+
+			// If holder 1 is filled, and holder 2 is not
+
+			// If holder 2 is filled, and holder 1 is not
+
+			// If both are filled
+		}
+
+		// Input filled, output empty
+		if (InputBox->Text != "" && OutputHolder->Text == "")
+		{
+			// If neither holders are filled
+
+			// If holder 1 is filled, and holder 2 is not
+
+			// If holder 2 is filled, and holder 1 is not
+
+			// If both are filled
+		}
+
+		// Both filled
+		if (InputBox->Text != "" && OutputHolder->Text != "")
+		{
+			// If neither holders are filled
+
+			// If holder 1 is filled, and holder 2 is not
+
+			// If holder 2 is filled, and holder 1 is not
+
+			// If both are filled
+		}
+	}
+
 	// -------------------- Labels --------------------
 	// Input box label. Find a way to rename without breaking entire code.
-	private: System::Void label1_Click(System::Object^ sender, System::EventArgs^ e) {
+	private: System::Void label1_Click(System::Object^ sender, System::EventArgs^ e) 
+	{
+
 	}
 	// Input box. Find a way to rename without breaking entire code. 
-	private: System::Void label1_Click_1(System::Object^ sender, System::EventArgs^ e) {
+	private: System::Void label1_Click_1(System::Object^ sender, System::EventArgs^ e) 
+	{
+
+	}
+	private: System::Void OperationLabel_Click(System::Object^ sender, System::EventArgs^ e) 
+	{
+
 	}
 
 	// -------------------- Operations --------------------
-	private: System::Void Calculate_Click(System::Object^ sender, System::EventArgs^ e) {
+	private: System::Void Calculate_Click(System::Object^ sender, System::EventArgs^ e)
+	{
+		Calculations();
+		// If the first holder is not empty, and the second holder is empty, but the input box is not empty,
+		if (num1Holder->Text != "" && num2Holder->Text == "" && InputBox->Text != "")
+		{
+			num2Holder->Text = InputBox->Text;
+			ClearInputBox();
+
+			double input1 = System::Convert::ToDouble(num1Holder->Text);
+			double input2 = System::Convert::ToDouble(num2Holder->Text);
+
+			switch (operation) {
+			case '+':
+				OutputHolder->Text += System::Convert::ToString(input1 + input2);
+				break;
+
+			case '-':
+				OutputHolder->Text += System::Convert::ToString(input1 - input2);
+				break;
+
+			case '*':
+				OutputHolder->Text += System::Convert::ToString(input1 * input2);
+				break;
+
+			case '/':
+				OutputHolder->Text += System::Convert::ToString(input1 / input2);
+				break;
+			}
+			return;
+		}
+
 	}
-	private: System::Void Multiplication_Click(System::Object^ sender, System::EventArgs^ e) {
+	private: System::Void Multiplication_Click(System::Object^ sender, System::EventArgs^ e) 
+	{
+		operation = '*';
+		SetOperator();
+		InputDataToHolders();
 	}
-	private: System::Void Division_Click(System::Object^ sender, System::EventArgs^ e) {
+	private: System::Void Division_Click(System::Object^ sender, System::EventArgs^ e) 
+	{
+		operation = '/';
+		SetOperator();
+		InputDataToHolders();
 	}
-	private: System::Void Addition_Click(System::Object^ sender, System::EventArgs^ e) {
+	private: System::Void Addition_Click(System::Object^ sender, System::EventArgs^ e) 
+	{
+		operation = '+';
+		SetOperator();
+		InputDataToHolders();
 	}
-	private: System::Void Subtraction_Click(System::Object^ sender, System::EventArgs^ e) {
+	private: System::Void Subtraction_Click(System::Object^ sender, System::EventArgs^ e) 
+	{
+		operation = '-';
+		SetOperator();
+		InputDataToHolders();
 	}
 
 	// -------------------- Input/Output --------------------
 	private: System::Void Clear_Input_Click(System::Object^ sender, System::EventArgs^ e) 
 	{
-		InputBox->Text = "0";
+		InputBox->Text = "";
+	}
+	private: System::Void Clear_Click(System::Object^ sender, System::EventArgs^ e) 
+	{
+		ClearAll();
 	}
 
 	// -------------------- Number Buttons --------------------

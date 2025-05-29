@@ -1,2 +1,5 @@
 Devlog - TODO:
-- Rename label functions for output for better readability. 
+-	Rename label functions for output for better readability. 
+-	Add check in the calculate_click function to look for 
+	0's at the beginning of input strings. If there are any, remove. 
+

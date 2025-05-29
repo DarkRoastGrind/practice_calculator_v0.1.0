@@ -1,3 +1,5 @@
+--------------- 29 MAY 25: ---------------
+
 --------------- 26 MAY 25: ---------------
 MAJOR:
 - Added a new form, "Calculator"
@@ -9,6 +11,11 @@ MAJOR:
 
 - Added clear input button.
 	Clears the input box only, not the entire calculation.
+
+- Added new Operation Label
+	Allows for separation of function usage in order to stop complicated code. 
+	Now only one function is required to modify the operation symbol
+	Prevent clutter 
 
 MINOR:
 - Added readme
